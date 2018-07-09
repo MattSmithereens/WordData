@@ -1,0 +1,23 @@
+<div class='page-heading'>
+    <h1>City Data</h1>
+    <p>Below is a list of city data. Use the dropdown list to filter the city data.</p>
+    <form method='GET' action='/cities/filterBy'>
+      <div class='form-group'>
+        <select name='selection' class='form-control' required>
+           <option name='' value=''>Select a Filter</option>
+           <option name='selection' value='countryCode'>Country Code</option>
+           <option name='selection' value='district'>District</option>
+           <option name='selection' value='population'>Population</option>
+        </select>
+      </div>
+      <div class='form-group'>
+        <select name='order' class='form-control' required>
+           <option name='' value=''>Select an Order</option>
+           <option name='order' value='asc'>Ascending</option>
+           <option name='order' value='desc'>Descending</option>
+        </select>
+      </div>
+      <button type='submit' class='btn btn-lg btn-default' id='filterBtn'>Filter Results</button>
+      <a href='/cities' class='btn btn-lg btn-default'>View Unfiltered</a>
+    </form>
+</div>

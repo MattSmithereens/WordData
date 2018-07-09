@@ -15,9 +15,9 @@ namespace WorldDataProject.Controllers
       }
 
       [HttpGet("/cities/filterBy")]
-      public ActionResult FilterBy(string selection)
+      public ActionResult FilterBy(string selection, string order)
       {
-          List<City> citiesWithFilter = City.FilterBy(selection);
+          List<City> citiesWithFilter = City.FilterBy(selection, order);
           return View(citiesWithFilter);
       }
    }

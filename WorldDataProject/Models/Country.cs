@@ -115,13 +115,13 @@ namespace WorldDataProject.Models
             return allCountries;
         }
 
-        public static List<Country> FilterBy(string filterValue)
+        public static List<Country> FilterBy(string filterValue, string order)
         {
             List<Country> filteredList = new List<Country> {};
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT name, " + filterValue + " FROM country;";
+            cmd.CommandText = @"SELECT name, " + filterValue + " FROM country ORDER BY " + filterValue + " " + order + ";";
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {

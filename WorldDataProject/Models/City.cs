@@ -112,13 +112,13 @@ namespace WorldDataProject.Models
             return allCities;
         }
 
-        public static List<City> FilterBy(string filterValue)
+        public static List<City> FilterBy(string filterValue, string order)
         {
             List<City> filteredList = new List<City> {};
             MySqlConnection conn = DB.Connection();
             conn.Open();
             MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-            cmd.CommandText = @"SELECT name, " + filterValue + " FROM city;";
+            cmd.CommandText = @"SELECT name, " + filterValue + " FROM city ORDER BY " + filterValue + " " + order + ";";
             MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
             while(rdr.Read())
             {
