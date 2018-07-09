@@ -12,6 +12,7 @@ namespace WorldDataProject.Models
         private string _continent;
         private int _population;
         private string _headOfState;
+        private string _filterValue;
 
         public Country(string countryCode, string countryName, string countryContinent, int countryPopulation, string countryHeadOfState)
         {
@@ -20,6 +21,12 @@ namespace WorldDataProject.Models
             _continent = countryContinent;
             _population = countryPopulation;
             _headOfState = countryHeadOfState;
+        }
+
+        public Country(string countryName, string filterValue)
+        {
+            _name = countryName;
+            _filterValue = filterValue;
         }
 
         public string GetCode()
@@ -72,6 +79,16 @@ namespace WorldDataProject.Models
             _headOfState = headOfState;
         }
 
+        public string GetColumn()
+        {
+            return _filterValue;
+        }
+
+        public void SetColumn(string filterValue)
+        {
+            _filterValue = filterValue;
+        }
+
         public static List<Country> GetAll()
         {
             List<Country> allCountries = new List<Country> {};
@@ -96,6 +113,29 @@ namespace WorldDataProject.Models
                 conn.Dispose();
             }
             return allCountries;
+        }
+
+        public static List<Country> FilterBy(string filterValue)
+        {
+            List<Country> filteredList = new List<Country> {};
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT name, " + filterValue + " FROM country;";
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            while(rdr.Read())
+            {
+                string countryName = rdr.GetString(0);
+                string selectedColumn = rdr.GetValue(1).ToString();
+                Country newCountry = new Country(countryName, selectedColumn);
+                filteredList.Add(newCountry);
+            }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return filteredList;
         }
     }
 }
