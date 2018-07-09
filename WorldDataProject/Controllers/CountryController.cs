@@ -14,12 +14,11 @@ namespace WorldDataProject.Controllers
             return View(allCountries);
         }
 
-        [HttpGet("/filter-by")]
+        [HttpGet("/countries/filterBy")]
         public ActionResult FilterBy(string selection)
         {
             List<Country> countriesWithFilter = Country.FilterBy(selection);
             return View(countriesWithFilter);
         }
-
     }
 }
